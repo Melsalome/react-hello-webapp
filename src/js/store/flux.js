@@ -1,4 +1,4 @@
-import {ContactOperationsDispatch} from '../store/contactOperationsDispatch'
+import ContactOperationsDispatch from "./contactOperationsDispatch";
 
 
 const getState = ({ getStore, getActions, setStore }) => {
@@ -16,14 +16,20 @@ const getState = ({ getStore, getActions, setStore }) => {
 					initial: "white"
 				}
 			],
-			contacts: [],
+			contacts: 
+				[{
+				name:"Odin",
+				phone:"555-555",
+				email:"odin@gmail.com",
+				address:"whatever street"
+			}],
 		},
 		actions: {
 		
-			getContactsList: async () => {
-				const agendas = await ContactOperationsDispatch.get();
+			getContactList: async () => {
+				// const {contacts} = await ContactOperationsDispatch.get();
 				const store = getStore();
-				setStore({...store, contactsList: contacts})
+				setStore({...store, contacts:contacts})
 			},
 			// getAgendas: async () => {
 			// const agendas = await getAllAgendas();

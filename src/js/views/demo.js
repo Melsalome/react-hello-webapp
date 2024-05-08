@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 
 import { Context } from "../store/appContext";
+import '../store/flux.js'
 
 import "../../styles/demo.css";
 
