@@ -1,3 +1,6 @@
+import {ContactOperationsDispatch} from '../store/contactOperationsDispatch'
+
+
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
@@ -12,18 +15,22 @@ const getState = ({ getStore, getActions, setStore }) => {
 					background: "white",
 					initial: "white"
 				}
-			]
+			],
+			contacts: [],
 		},
 		actions: {
-			// Use getActions to call a function within a fuction
-			exampleFunction: () => {
-				getActions().changeColor(0, "green");
+		
+			getContactsList: async () => {
+				const agendas = await ContactOperationsDispatch.get();
+				const store = getStore();
+				setStore({...store, contactsList: contacts})
 			},
-			loadSomeData: () => {
-				/**
-					fetch().then().then(data => setStore({ "foo": data.bar }))
-				*/
-			},
+			// getAgendas: async () => {
+			// const agendas = await getAllAgendas();
+			// const store = getStore();
+			// setStore({...store, agendaOriginal: agendas})
+			// },
+
 			changeColor: (index, color) => {
 				//get the store
 				const store = getStore();
