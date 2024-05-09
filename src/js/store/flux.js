@@ -1,3 +1,4 @@
+import ContactDeleteOperationsDispatch from "./contactDeleteOperationsDispatch";
 import ContactOperationsDispatch from "./contactOperationsDispatch";
 import CreateContactOperationsDispatch from "./createContactOperationsDispatch";
 
@@ -39,6 +40,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 			const { contactData } = await CreateContactOperationsDispatch.post();
 			const store = getStore();
 			setStore({...store, contacts: contactData})
+			},
+
+			deleteContact: async () => {
+				const {contactId} = await ContactDeleteOperationsDispatch.delete();
+				const store = getStore();
+				setStore({...store, contact})
 			}
 		}
 	};

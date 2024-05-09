@@ -1,7 +1,7 @@
 
 const ContactDeleteOperationsDispatch = {
-    get: async () => {
-        const response = await fetch('https://playground.4geeks.com/contact/agendas/agendaMelisa/contacts', {
+    get: async (contactId) => {
+        const response = await fetch(`https://playground.4geeks.com/contact/agendas/agendaMelisa/contacts/${contactId}`, {
             method: 'DELETE',
             headers: {'Content-Type': 'application/json'}
         })
