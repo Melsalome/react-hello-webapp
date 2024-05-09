@@ -1,11 +1,14 @@
 import React, { useContext, useEffect } from 'react'
 import { Context } from '../store/appContext';
+import { Navigate, useNavigate, navigate } from 'react-router';
+import { Link } from 'react-router-dom';
+import ContactCard from '../component/contactCard';
 
 
 
 const Contacts = () => {
   const { store, actions } = useContext(Context);
-  
+
   
   useEffect( () => {
     actions.getContactList();
@@ -14,13 +17,13 @@ const Contacts = () => {
 
 
   return (
-    <div>
-      <ul>
-      {store.contacts.map((contact)=>(<li>{contact.name}</li>))}
-      {store.contacts.map((contact)=>(<li>{contact.phone}</li>))}
-      {store.contacts.map((contact)=>(<li>{contact.email}</li>))}
-      {store.contacts.map((contact)=>(<li>{contact.address}</li>))}
-      </ul>
+    <div className='contacts-page'>
+    <Link to="/add-contact-form">
+      <button className='addContact'>Add New Contact</button>
+    </Link>
+    {store.contacts.map((contact) => (
+      <ContactCard key={contact.id} contact={contact}/>
+    ))}
     </div>
   )
 }

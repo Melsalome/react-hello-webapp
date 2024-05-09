@@ -1,4 +1,5 @@
 import ContactOperationsDispatch from "./contactOperationsDispatch";
+import CreateContactOperationsDispatch from "./createContactOperationsDispatch";
 
 
 const getState = ({ getStore, getActions, setStore }) => {
@@ -19,7 +20,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 			contacts: 
 				[{
 				name:"Odin",
-				phone:"555-555",
+				lastName: "Odin",
+				phoneNumber:"555-555",
 				email:"odin@gmail.com",
 				address:"whatever street"
 			}],
@@ -31,25 +33,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 				const store = getStore();
 				setStore({...store, contacts:contacts})
 			},
-			// getAgendas: async () => {
-			// const agendas = await getAllAgendas();
-			// const store = getStore();
-			// setStore({...store, agendaOriginal: agendas})
-			// },
+		
 
-			changeColor: (index, color) => {
-				//get the store
-				const store = getStore();
-
-				//we have to loop the entire demo array to look for the respective index
-				//and change its color
-				const demo = store.demo.map((elm, i) => {
-					if (i === index) elm.background = color;
-					return elm;
-				});
-
-				//reset the global store
-				setStore({ demo: demo });
+			addNewContact: async () => {
+			const { contactData } = await CreateContactOperationsDispatch.post();
+			const store = getStore();
+			setStore({...store, contacts: contactData})
 			}
 		}
 	};
