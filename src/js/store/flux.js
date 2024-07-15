@@ -1,52 +1,39 @@
-import ContactDeleteOperationsDispatch from "./contactDeleteOperationsDispatch";
-import ContactOperationsDispatch from "./contactOperationsDispatch";
-import CreateContactOperationsDispatch from "./createContactOperationsDispatch";
+import { contactDispatcher } from "./contactDispatcher";
+
 
 
 const getState = ({ getStore, getActions, setStore }) => {
+	
 	return {
 		store: {
-			demo: [
-				{
-					title: "FIRST",
-					background: "white",
-					initial: "white"
-				},
-				{
-					title: "SECOND",
-					background: "white",
-					initial: "white"
-				}
-			],
-			contacts: 
-				[{
-				name:"Odin",
-				lastName: "Odin",
-				phoneNumber:"555-555",
-				email:"odin@gmail.com",
-				address:"whatever street"
-			}],
+			contacts: [],
+			contactList:[]
+			
 		},
 		actions: {
-		
-			getContactList: async () => {
-				// const {contacts} = await ContactOperationsDispatch.get();
-				const store = getStore();
-				setStore({...store, contacts:contacts})
+			
+			getContacts: async() => {
+				const store = getStore()
+				const {contacts} = await contactDispatcher.get()
+				setStore({...store, contacts})
+				console.log(store.contacts)
+				
 			},
 		
-
-			addNewContact: async () => {
-			const { contactData } = await CreateContactOperationsDispatch.post();
-			const store = getStore();
-			setStore({...store, contacts: contactData})
+			createContacts: async(contact) => {
+				const store = getStore()
+				const newContact = await contactDispatcher.post(contact)
+				setStore({...store, contactList: [...store.contactList,newContact]})
+				console.log(store.contactList)
 			},
-
-			deleteContact: async () => {
-				const {contactId} = await ContactDeleteOperationsDispatch.delete();
-				const store = getStore();
-				setStore({...store, contact})
+			deleteContacts: async(id) => {
+				await contactDispatcher.delete(id)
+			},
+			updateContacts: async(id,updatedContacts) => {
+				await contactDispatcher.put(id,updatedContacts)
 			}
+
+			
 		}
 	};
 };
